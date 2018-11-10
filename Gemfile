@@ -2,6 +2,7 @@ ruby '>=2.3.1'
 source 'https://rubygems.org'
 
 # Middleman
+gem 'therubyracer'
 gem 'middleman', '~>4.2.1'
 gem 'middleman-syntax', '~> 3.0.0'
 gem 'middleman-autoprefixer', '~> 2.7.0'
