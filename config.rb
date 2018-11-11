@@ -47,11 +47,15 @@ configure :build do
   # activate :relative_assets
   # activate :asset_hash
   # activate :gzip
+  # config[:host] = "http://localhost:"
 end
 
 # Deploy Configuration
 # If you want Middleman to listen on a different port, you can set that below
-set :port, 4567
+# set :port, 
+
+# Base url (for proxy)
+# set :base_url, 'http://localhost:3002/docs/'
 
 helpers do
   require './lib/toc_data.rb'
