@@ -85,7 +85,8 @@ curl "https://reposit.co.uk/api/deposits/v1/reposits"
   "startDate": "18/10/2018",
   "endDate": "18/10/2019",
   "tenantEmails": ["tenant1@hotmail.co.uk", "tenant2@sky.com"],
-  "letOnly": false
+  "letOnly": false,
+  "agentEmail": "propertymanager@greatproperties.co.uk"
 }
 ```
 
@@ -101,16 +102,17 @@ Once a Repoist is created, tenants will be emailed and need to complete the proc
 
 ### Payload
 
-| Parameter    | Type                  | Description                                                                                            |
-| ------------ | --------------------- | ------------------------------------------------------------------------------------------------------ |
-| address      | [Address](#address)   | Address of the property on the tenancy agreement.                                                      |
-| landlord     | [Landlord](#landlord) | Landlord of the property.                                                                              |
-| ppm          | number                | Monthly rent in pounds.                                                                                |
-| headcount    | number                | Total number of tenants on the tenancy agreement.                                                      |
-| startDate    | Date                  | Start date of the tenancy.                                                                             |
-| endDate      | Date                  | End date of the tenancy.                                                                               |
-| tenantEmails | string[]              | Array of email addresses for all tenants on the tenancy agreement.                                     |
-| letOnly      | boolean               | Set to true if the Landlord will manage the claims process instead of the account creating the Reposit |
+| Parameter    | Type                  | Description                                                                                                                                                                                                                                                                                                |
+| ------------ | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address      | [Address](#address)   | Address of the property on the tenancy agreement.                                                                                                                                                                                                                                                          |
+| landlord     | [Landlord](#landlord) | Landlord of the property.                                                                                                                                                                                                                                                                                  |
+| ppm          | number                | Monthly rent in pounds.                                                                                                                                                                                                                                                                                    |
+| headcount    | number                | Total number of tenants on the tenancy agreement.                                                                                                                                                                                                                                                          |
+| startDate    | Date                  | Start date of the tenancy.                                                                                                                                                                                                                                                                                 |
+| endDate      | Date                  | End date of the tenancy.                                                                                                                                                                                                                                                                                   |
+| tenantEmails | string[]              | Array of email addresses for all tenants on the tenancy agreement.                                                                                                                                                                                                                                         |
+| letOnly      | boolean               | Set to true if the Landlord will manage the claims process instead of the account creating the Reposit.                                                                                                                                                                                                    |
+| agentEmail   | string                | Email address of the agent responsible for the tenancy; they will receive all email notifications related to the Reposit. This must match up with a valid Reposit user that has access to the supplier account associated with the api key. If not, the default user for the account will be used instead. |
 
 <!-- <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
