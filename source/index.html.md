@@ -50,33 +50,50 @@ You must replace <code>reallySecureApiKey</code> with your personal API key.
 
 ## Create a Reposit
 
+> HTTP Request
+
 ```shell
-curl "http://example.com/api/kittens"
+curl "https://reposit.co.uk/api/deposits/v1/reposits"
   -H "Authorization: meowmeowmeow"
 ```
 
-> The above command returns JSON structured like this:
+> Example request payload:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+{
+  "address": {
+    "line1": "229 Shoreditch High Street",
+    "line2": "Shoreditch",
+    "town": "London",
+    "country": "GBR",
+    "postcode": "E1 6PJ"
   },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+  "landlord": {
+    "firstName": "Bobby",
+    "lastName": "Moore",
+    "email": "bobtheman@gmail.com",
+    "address": {
+      "line1": "229 Shoreditch High Street",
+      "line2": "Shoreditch",
+      "town": "London",
+      "country": "GBR",
+      "postcode": "E1 6PJ"
+    }
+  },
+  "ppm": 2000,
+  "headcount": 2,
+  "startDate": "18/10/2018",
+  "endDate": "18/10/2019",
+  "tenantEmails": ["tenant1@hotmail.co.uk", "tenant2@sky.com"],
+  "letOnly": false
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint creates a Reposit with all required information.
+
+<aside class="notice">
+Once a Repoist is created, tenants will be emailed and need to complete the process through the Reposit dashboard before the Reposit becomes 'Active' and the landlord is covered.
+</aside>
 
 ### HTTP Request
 
@@ -84,74 +101,22 @@ This endpoint retrieves all kittens.
 
 ### Payload
 
-| Parameter    | Type     | Description                                                                                            |
-| ------------ | -------- | ------------------------------------------------------------------------------------------------------ |
-| address      | Address  | Address of the property on the tenancy agreement.                                                      |
-| landlord     | Landlord | Landlord of the property.                                                                              |
-| ppm          | number   | Monthly rent in pounds.                                                                                |
-| headcount    | number   | Total number of tenants on the tenancy agreement.                                                      |
-| startDate    | Date     | Start date of the tenancy.                                                                             |
-| endDate      | Date     | End date of the tenancy.                                                                               |
-| tenantEmails | string[] | Array of email addresses for all tenants on the tenancy agreement.                                     |
-| letOnly      | boolean  | Set to true if the Landlord will manage the claims process instead of the account creating the Reposit |
+| Parameter    | Type                   | Description                                                                                            |
+| ------------ | ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| address      | [Address](/#Address)   | Address of the property on the tenancy agreement.                                                      |
+| landlord     | [Landlord](/#Landlord) | Landlord of the property.                                                                              |
+| ppm          | number                 | Monthly rent in pounds.                                                                                |
+| headcount    | number                 | Total number of tenants on the tenancy agreement.                                                      |
+| startDate    | Date                   | Start date of the tenancy.                                                                             |
+| endDate      | Date                   | End date of the tenancy.                                                                               |
+| tenantEmails | string[]               | Array of email addresses for all tenants on the tenancy agreement.                                     |
+| letOnly      | boolean                | Set to true if the Landlord will manage the claims process instead of the account creating the Reposit |
 
-<aside class="success">
+<!-- <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
-</aside>
+</aside> -->
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require("kittn");
-
-let api = kittn.authorize("meowmeowmeow");
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-| Parameter | Description                      |
-| --------- | -------------------------------- |
-| ID        | The ID of the kitten to retrieve |
+<!-- <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside> -->
 
 # Objects
 
