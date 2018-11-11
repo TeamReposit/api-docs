@@ -28,7 +28,7 @@ For testing please use the <code>https://demo.reposit.co.uk/api/</code> endpoint
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: reallySecureApiKey"
+  -H "Authorization: Bearer reallySecureApiKey"
 ```
 
 > Make sure to replace `reallySecureApiKey` with your API key.
@@ -40,7 +40,7 @@ Reposit requires you to have an API key to allow access to the API. Getting an A
 
 Reposit expects the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: reallySecureApiKey`
+`Authorization: Bearer reallySecureApiKey`
 
 <aside class="notice">
 You must replace <code>reallySecureApiKey</code> with your personal API key.
@@ -54,7 +54,7 @@ You must replace <code>reallySecureApiKey</code> with your personal API key.
 
 ```shell
 curl "https://reposit.co.uk/api/deposits/v1/reposits"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: Bearer reallySecureApiKey"
 ```
 
 > Example request payload:
