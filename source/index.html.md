@@ -163,9 +163,9 @@ Remember — a happy kitten is an authenticated kitten!
 
 We use the Landlord's information to name them on the insurace policies which provide them with cover when a Reposit is completed.
 
-| Parameter | Required? | Description                                                |
-| --------- | --------- | ---------------------------------------------------------- |
-| firstName | Y         | First name                                                 |
-| lastName  | Y         | Last name                                                  |
-| email     | Y         | Email address (to receive policy documents)                |
-| address   | Y         | Home or business address ([See address object](/#address)) |
+| Parameter | Required? | Description                                               |
+| --------- | --------- | --------------------------------------------------------- |
+| firstName | Y         | First name                                                |
+| lastName  | Y         | Last name                                                 |
+| email     | Y         | Email address (to receive policy documents)               |
+| address   | Y         | Home or business address ([See address object](#address)) |
