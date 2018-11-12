@@ -36,7 +36,7 @@ curl "api_endpoint_here"
 Reposit requires you to have an API key to allow access to the API. Getting an API key is simple:
 
 1. [Register](https://reposit.co.uk/register/) an agency or landlord account ([Click here](https://demo.reposit.co.uk/register/) if you'd like to make a demo account for testing).
-2. Naviagte to your 'Account' section. Your API key will be displayed on this page.
+2. Navigate to your 'Account' section. Your API key will be displayed on this page.
 
 Reposit expects the API key to be included in all API requests to the server in a header that looks like the following:
 
@@ -48,12 +48,69 @@ You must replace <code>reallySecureApiKey</code> with your personal API key.
 
 # Routes
 
+## Get Supplier account
+
+> HTTP Request
+
+```shell
+curl "https://reposit.co.uk/api/deposits/supplier"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example response:
+
+```json
+{
+  "id": "sup_DFed239dl8974Dccx",
+  "name": "Great Lets",
+  "type": "AGENCY",
+  "integrationToken": "reallySecureApiKey",
+  "created_at": "2018-11-10 11:12:11.999"
+}
+```
+
+This endpoint returns information about the logged in supplier account. This endpoint is useful if you need the supplier id for other endpoints.
+
+### HTTP Request
+
+`GET https://reposit.co.uk/deposits/v1/supplier`
+
+## Get Supplier agents
+
+> HTTP Request
+
+```shell
+curl "https://reposit.co.uk/api/deposits/supplier/:id/agents"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example response:
+
+```json
+[
+  { "id": "usr_dGdls1203xl00p", "firstName": "Janet", "lastName": "Savoy" },
+  { "id": "usr_bG60oPld44Hxa1", "firstName": "Frank", "lastName": "Galloway" }
+]
+```
+
+This endpoint returns all agent user accounts associated with this supplier. This is useful becuase when [creating a Reposit](#create-a-reposit) you'll need to pass in a valid agent id.
+
+### HTTP Request
+
+`GET https://reposit.co.uk/deposits/v1/supplier/:id/agents`
+
+### Request params
+
+| Parameter | Description                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------------- |
+| id        | Supplier id - You can obtain this from calling the [Get Supplier account](#get-supplier-account) endpoint |
+
 ## Create a Reposit
 
 > HTTP Request
 
 ```shell
-curl "https://reposit.co.uk/api/deposits/v1/reposits"
+curl -X POST "https://reposit.co.uk/deposits/v1/reposits"
   -H "Authorization: Bearer reallySecureApiKey"
 ```
 
@@ -93,12 +150,12 @@ curl "https://reposit.co.uk/api/deposits/v1/reposits"
 This endpoint creates a Reposit with all required information.
 
 <aside class="notice">
-Once a Repoist is created, tenants will be emailed and need to complete the process through the Reposit dashboard before the Reposit becomes 'Active' and the landlord is covered.
+Once a Reposit is created, tenants will be emailed and need to complete the process through the Reposit dashboard before the Reposit becomes 'Active' and the landlord is covered.
 </aside>
 
 ### HTTP Request
 
-`POST https://reposit.co.uk/api/deposits/v1/reposits`
+`POST https://reposit.co.uk/deposits/v1/reposits`
 
 ### Payload
 
