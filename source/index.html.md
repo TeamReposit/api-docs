@@ -69,7 +69,11 @@ curl "https://reposit.co.uk/api/deposits/supplier"
 }
 ```
 
-This endpoint returns information about the logged in supplier account. This data is useful if you need the supplier id for calling other endpoints.
+This endpoint returns information about the logged in supplier account.
+
+<aside class="notice">
+Supplier data is useful if you need the supplier id for calling other endpoints. Such as <a href="#get-supplier-agents">Getting supplier agents</a>.
+</aside>
 
 ### HTTP Request
 
@@ -137,13 +141,13 @@ curl -X POST "https://reposit.co.uk/deposits/v1/reposits"
       "postcode": "E1 6PJ"
     }
   },
+  "agentId": "usr_bG60oPld44Hxa1",
   "ppm": 2000,
   "headcount": 2,
   "startDate": "2018-10-21",
   "endDate": "2019-10-21",
   "tenantEmails": ["tenant1@hotmail.co.uk", "tenant2@sky.com"],
-  "letOnly": false,
-  "agentEmail": "propertymanager@greatproperties.co.uk"
+  "letOnly": false
 }
 ```
 
@@ -159,17 +163,17 @@ Once a Reposit is created, tenants will be emailed and need to complete the proc
 
 ### Payload
 
-| Parameter    | Type                  | Description                                                                                                                                                                                                                                                                                                |
-| ------------ | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address      | [Address](#address)   | Address of the property on the tenancy agreement.                                                                                                                                                                                                                                                          |
-| landlord     | [Landlord](#landlord) | Landlord of the property.                                                                                                                                                                                                                                                                                  |
-| ppm          | number                | Monthly rent in pounds.                                                                                                                                                                                                                                                                                    |
-| headcount    | number                | Total number of tenants on the tenancy agreement.                                                                                                                                                                                                                                                          |
-| startDate    | Date                  | Start date of the tenancy (YYYY-MM-DD)                                                                                                                                                                                                                                                                     |
-| endDate      | Date                  | End date of the tenancy. (YYYY-MM-DD)                                                                                                                                                                                                                                                                      |
-| tenantEmails | string[]              | Array of email addresses for all tenants on the tenancy agreement.                                                                                                                                                                                                                                         |
-| letOnly      | boolean               | Set to true if the Landlord will manage the claims process instead of the account creating the Reposit.                                                                                                                                                                                                    |
-| agentEmail   | string                | Email address of the agent responsible for the tenancy; they will receive all email notifications related to the Reposit. This must match up with a valid Reposit user that has access to the supplier account associated with the api key. If not, the default user for the account will be used instead. |
+| Parameter    | Type                  | Description                                                                                                                                                        |
+| ------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| address      | [Address](#address)   | Address of the property on the tenancy agreement.                                                                                                                  |
+| landlord     | [Landlord](#landlord) | Landlord of the property.                                                                                                                                          |
+| agentId      | string                | ID of the agent who will receive all notifications related to this Reposit. You can lookup agent ids via the [Get supplier agents](#get-supplier-agents) endpoint. |
+| ppm          | number                | Monthly rent in pounds.                                                                                                                                            |
+| headcount    | number                | Total number of tenants on the tenancy agreement.                                                                                                                  |
+| startDate    | Date                  | Start date of the tenancy (YYYY-MM-DD)                                                                                                                             |
+| endDate      | Date                  | End date of the tenancy. (YYYY-MM-DD)                                                                                                                              |
+| tenantEmails | string[]              | Array of email addresses for all tenants on the tenancy agreement.                                                                                                 |
+| letOnly      | boolean               | Set to true if the Landlord will manage the claims process instead of the agent. Defaults to false.                                                                |
 
 <!-- <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
@@ -221,6 +225,7 @@ Remember — a happy kitten is an authenticated kitten!
 ```
 
 We use the Landlord's information to name them on the insurace policies which provide them with cover when a Reposit is completed.
+A landlord can be either a company or a person.
 
 | Parameter | Required? | Description                                               |
 | --------- | --------- | --------------------------------------------------------- |
