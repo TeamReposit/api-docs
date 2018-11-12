@@ -69,7 +69,7 @@ curl "https://reposit.co.uk/api/deposits/supplier"
 }
 ```
 
-This endpoint returns information about the logged in supplier account. This endpoint is useful if you need the supplier id for other endpoints.
+This endpoint returns information about the logged in supplier account. This data is useful if you need the supplier id for calling other endpoints.
 
 ### HTTP Request
 
@@ -93,7 +93,7 @@ curl "https://reposit.co.uk/api/deposits/supplier/:id/agents"
 ]
 ```
 
-This endpoint returns all agent user accounts associated with this supplier. This is useful becuase when [creating a Reposit](#create-a-reposit) you'll need to pass in a valid agent id.
+This endpoint returns all agent user accounts associated with this supplier. This is required when [creating a Reposit](#create-a-reposit) as you'll need to pass in a valid agent id.
 
 ### HTTP Request
 
