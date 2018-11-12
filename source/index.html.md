@@ -18,7 +18,7 @@ search: true
 Welcome to the Reposit Partner API! You can use our API to authenticate with your supplier token and create new Reposits.
 
 <aside class="notice">
-For testing please use the <code>https://demo.reposit.co.uk/api/</code> endpoint in the examples below.
+For testing please use the <code>https://demo.reposit.co.uk/deposits/</code> endpoint in the examples below.
 </aside>
 
 # Authentication
@@ -53,7 +53,7 @@ You must replace <code>reallySecureApiKey</code> with your personal API key.
 > HTTP Request
 
 ```shell
-curl "https://reposit.co.uk/api/deposits/supplier"
+curl "https://reposit.co.uk/deposits/v1/suppliers/me"
   -H "Authorization: Bearer reallySecureApiKey"
 ```
 
@@ -77,14 +77,14 @@ Supplier data is useful if you need the supplier id for calling other endpoints.
 
 ### HTTP Request
 
-`GET https://reposit.co.uk/deposits/v1/supplier`
+`GET https://reposit.co.uk/deposits/v1/suppliers/me`
 
 ## Get Supplier agents
 
 > HTTP Request
 
 ```shell
-curl "https://reposit.co.uk/api/deposits/supplier/:id/agents"
+curl "https://reposit.co.uk/deposits/v1/suppliers/:id/agents"
   -H "Authorization: Bearer reallySecureApiKey"
 ```
 
@@ -101,7 +101,7 @@ This endpoint returns all agent user accounts associated with this supplier. Thi
 
 ### HTTP Request
 
-`GET https://reposit.co.uk/deposits/v1/supplier/:id/agents`
+`GET https://reposit.co.uk/deposits/v1/suppliers/:id/agents`
 
 ### Request params
 
