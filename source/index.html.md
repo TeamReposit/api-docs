@@ -43,7 +43,7 @@ Reposit expects the API key to be included in all API requests to the server in 
 `Authorization: Bearer reallySecureApiKey`
 
 <aside class="notice">
-You must replace <code>reallySecureApiKey</code> with your personal API key.
+You must replace <code>reallySecureApiKey</code> with your supplier API key.
 </aside>
 
 # Routes
@@ -64,7 +64,6 @@ curl "https://reposit.co.uk/deposits/v1/suppliers/me"
   "id": "sup_DFed239dl8974Dccx",
   "name": "Great Lets",
   "type": "AGENCY",
-  "integrationToken": "reallySecureApiKey",
   "created_at": "2018-11-10 11:12:11.999"
 }
 ```
