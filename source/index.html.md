@@ -18,7 +18,7 @@ search: true
 Welcome to the Reposit Partner API! You can use our API to authenticate with your supplier token and create new Reposits.
 
 <aside class="notice">
-For testing please use the <code>https://demo.reposit.co.uk/deposits/</code> endpoint in the examples below.
+For testing please use <code>https://demo.reposit.co.uk/deposits/</code> as the base url in the examples below.
 </aside>
 
 # Authentication
@@ -33,6 +33,7 @@ curl "api_endpoint_here"
 
 > Make sure to replace `reallySecureApiKey` with your API key.
 
+<aside class="warning">API keys are designed to map to a single lettings agency. If you are integrating a system that has a concept of organisations/agencies then each one would need to use it's own api key; they would need to create an account with us first and enter their api key into your system.</aside>
 Reposit requires you to have an API key to allow access to the API. Getting an API key is simple:
 
 1. [Register](https://reposit.co.uk/register/) an agency or landlord account ([Click here](https://demo.reposit.co.uk/register/) if you'd like to make a demo account for testing).
@@ -97,6 +98,10 @@ curl "https://reposit.co.uk/deposits/v1/suppliers/:id/agents"
 ```
 
 This endpoint returns all agent user accounts associated with this supplier. This is required when [creating a Reposit](#create-a-reposit) as you'll need to pass in a valid agent id.
+
+<aside class="notice">
+ If you are integrating create a Reposit, you should allow the user to select which agent to associate with the Reposit.
+</aside>
 
 ### HTTP Request
 
