@@ -56,7 +56,7 @@ curl "api_endpoint_here"
   -H "Reposit-Referrer-Token: GreatCRM-bg3khR9oNz"
 ```
 
-If you are a third party system that is acting as referrer between a landlord / letting agent and Reposit (e.g. CRM systems) then you should include an additional header in ALL requests.
+If you are a third party system that is acting as referrer between a landlord / letting agent and Reposit (e.g. CRM systems) then you should include an additional header in `ALL requests`.
 
 `Reposit-Referrer-Token: GreatCRM-bg3khR9oNz`
 
