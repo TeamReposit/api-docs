@@ -26,7 +26,6 @@ For testing please use <code>https://demo.reposit.co.uk/deposits/</code> as the 
 > To authorize, use this code:
 
 ```shell
-# With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
   -H "Authorization: Bearer reallySecureApiKey"
 ```
@@ -45,6 +44,24 @@ Reposit expects the API key to be included in all API requests to the server in 
 
 <aside class="notice">
 You must replace <code>reallySecureApiKey</code> with your supplier API key.
+</aside>
+
+# CRM Integrations
+
+> To authorize as a referrer, use this code:
+
+```shell
+curl "api_endpoint_here"
+  -H "Authorization: Bearer reallySecureApiKey"
+  -H "Reposit-Referrer-Token: GreatCRM-bg3khR9oNz"
+```
+
+If you are a third party system that is acting as referrer between a landlord / letting agent and Reposit (e.g. CRM systems) then you should include an additional header in ALL requests.
+
+`Reposit-Referrer-Token: GreatCRM-bg3khR9oNz`
+
+<aside class="warning">
+This code will be used to track activity between your system and ours; so please remember to do this. If you are a referrer system that has not been given a token, <a href="mailto:brendan@reposit.co.uk">send us an email</a>.
 </aside>
 
 # Routes
