@@ -43,7 +43,7 @@ Reposit expects the API key to be included in all API requests to the server in 
 `Authorization: Bearer reallySecureApiKey`
 
 <aside class="notice">
-You must replace <code>reallySecureApiKey</code> with your supplier API key.
+You must replace <code>reallySecureApiKey</code> with a supplier API key.
 </aside>
 
 # CRM Integrations
