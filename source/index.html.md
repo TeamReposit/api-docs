@@ -15,7 +15,7 @@ search: true
 
 # Introduction
 
-Welcome to the Reposit Partner API! You can use our API to authenticate with your supplier token and create new Reposits.
+Welcome to the Reposit Partner API! You can use our API to create new Reposits from your system.
 
 <aside class="notice">
 For testing please use <code>https://demo.reposit.co.uk/deposits/</code> as the base url in the examples below.
