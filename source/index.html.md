@@ -130,6 +130,77 @@ This endpoint returns all agent user accounts associated with this supplier. Thi
 | --------- | --------------------------------------------------------------------------------------------------------- |
 | id        | Supplier id - You can obtain this from calling the [Get Supplier account](#get-supplier-account) endpoint |
 
+<!-- ## Get a Reposit
+
+```json
+{
+  "id": "rep_slkfDDF298483",
+  "ppm": 2000,
+  "headcount": 2,
+  "startDate": "2018-10-21",
+  "endDate": "2019-10-21",
+  "letOnly": false,
+  "createdAt": "2018-11-12T19:30:55.639Z",
+  "closedAt": null,
+  "deactivatedAt": null,
+  "landlord": {
+    "id": "ll_NmxaMCWEDRkk",
+    "firstName": "Johhny",
+    "lastName": "Moore",
+    "email": "bobthemannomore@gmail.com",
+    "createdAt": "2018-11-12T19:30:55.639Z",
+    "address": {
+      "line1": "229 Shoreditch High Street",
+      "line2": "Kent",
+      "town": "London",
+      "postcode": "E1 6PJ",
+      "country": "GBR",
+      "createdAt": "2018-11-12T19:30:55.639Z"
+    }
+  },
+  "address": {
+    "line1": "999 Shoreditch High Street",
+    "line2": "Shoreditch",
+    "town": "London",
+    "postcode": "E1 6PJ",
+    "country": "GBR",
+    "createdAt": "2018-11-12T19:30:55.639Z"
+  },
+  "agent": {
+    "id": "usr_ixYGxwnc7x7FLUn8ag",
+    "firstName": "Alberto",
+    "lastName": "Guiseppe"
+  },
+  "supplier": {
+    "id": "sup_sdkfjf349494D",
+    "name": "Hans International",
+    "type": "AGENCY"
+  },
+  "tenants": [
+    {
+      "userEmail": "tenant2@sky.com",
+      "createdAt": "2018-11-12T19:30:55.686Z"
+    },
+    {
+      "userEmail": "tenant1@hotmail.co.uk",
+      "createdAt": "2018-11-12T19:30:55.679Z"
+    }
+  ],
+  "policies": [
+    {
+      "id": "pol_sg45gd2134dFoo",
+      "documents": [
+        {
+          "id": "doc_sd3345dsdsd3",
+          "name": "Policy document.pdf",
+          "href": "https://reposit.co.uk/deposits/policies/pol_sg45gd2134dFoo/documents/doc_sd3345dsdsd3"
+        }
+      ]
+    }
+  ]
+}
+``` -->
+
 ## Create a Reposit
 
 > HTTP Request
@@ -201,6 +272,36 @@ Remember — a happy kitten is an authenticated kitten!
 </aside> -->
 
 <!-- <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside> -->
+
+# Webhooks
+
+Reposit provides webhooks to alert you of events that happen within our system. These are POST requests to your server that are sent as soon as an event occurs. The body of the request contains details of the event.
+
+## Events
+
+> Reposit completed example
+
+```json
+{
+  "payload": {
+    "resource_type": "reposit",
+    "action": "reposit.completed",
+    "object": {
+      "id": "rep_sfe2Ds0123x2gv",
+      "href": "https://reposit.co.uk/deposits/v1/reposits/rep_sfe2Ds0123x2gv",
+      "completed_at": "2018-11-12T19:30:55.686Z",
+      "policy": {
+        "id": "pol_xvbHuIOP43nv",
+        "download_href": "https://reposit.co.uk/deposits/v1/policies/pol_xvbHuIOP43nv/documents?download=true"
+      }
+    }
+  }
+}
+```
+
+| Resource | Event             | Description                                                                                                                                                                 |
+| -------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| reposit  | reposit.completed | The Reposit completed endpoint will fire when all tenants on a Reposit complete payment. At this point, a policy is issued which gives the landlord cover for the property. |
 
 # Objects
 
