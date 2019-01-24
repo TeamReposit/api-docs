@@ -61,10 +61,10 @@ If you are a third party system that is acting as referrer between a landlord / 
 `Reposit-Referrer-Token: GreatCRM-bg3khR9oNz`
 
 <aside class="warning">
-This code will be used to track activity between your system and ours; so please remember to do this. If you are a referrer system that has not been given a token, <a href="mailto:brendan@reposit.co.uk">send us an email</a>.
+This code will be used to track activity between your system and ours; so please remember to do this. If you are a referrer system that would like to request a token, <a href="mailto:brendan@reposit.co.uk">send us an email</a>.
 </aside>
 <aside class="notice">
- You will need to provide both an integration token and a referrer token. The integration token identifies the letting agency or landlord and the referrer token identifies your system.
+ You will need to provide both an integration token and a referrer token. The integration token identifies the letting agency that has an account with us and the referrer token identifies your system.
 </aside>
 
 # Routes
