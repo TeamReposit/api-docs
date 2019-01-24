@@ -63,6 +63,9 @@ If you are a third party system that is acting as referrer between a landlord / 
 <aside class="warning">
 This code will be used to track activity between your system and ours; so please remember to do this. If you are a referrer system that has not been given a token, <a href="mailto:brendan@reposit.co.uk">send us an email</a>.
 </aside>
+<aside class="notice">
+ You will need to provide both an integration token and a referrer token. The integration token identifies the letting agency or landlord and the referrer token identifies your system.
+</aside>
 
 # Routes
 
@@ -86,10 +89,10 @@ curl "https://reposit.co.uk/deposits/v1/suppliers/me"
 }
 ```
 
-This endpoint returns information about the logged in supplier account.
+This endpoint returns information about the supplier account associated with the integration token you provided.
 
 <aside class="notice">
-Supplier data is useful if you need the supplier id for calling other endpoints. Such as <a href="#get-supplier-agents">Getting supplier agents</a>.
+This endpoint is useful if you need to obtain a supplier id for calling other endpoints. Such as <a href="#get-supplier-agents">Getting supplier agents</a>.
 </aside>
 
 ### HTTP Request
@@ -130,76 +133,133 @@ This endpoint returns all agent user accounts associated with this supplier. Thi
 | --------- | --------------------------------------------------------------------------------------------------------- |
 | id        | Supplier id - You can obtain this from calling the [Get Supplier account](#get-supplier-account) endpoint |
 
-<!-- ## Get a Reposit
+## Get a Reposit
+
+> HTTP Request
+
+```shell
+curl "https://reposit.co.uk/deposits/v1/reposits/:id"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example response payload:
 
 ```json
 {
-  "id": "rep_slkfDDF298483",
-  "ppm": 2000,
-  "headcount": 2,
-  "startDate": "2018-10-21",
-  "endDate": "2019-10-21",
-  "letOnly": false,
-  "createdAt": "2018-11-12T19:30:55.639Z",
+  "id": "rep_xdFEdfgeDxoC",
+  "ppm": 5000,
+  "headcount": 1,
+  "startDate": "2017-01-18",
+  "endDate": "2018-01-18",
+  "letOnly": null,
+  "createdAt": "2017-01-12T00:00:00.000Z",
   "closedAt": null,
   "deactivatedAt": null,
-  "landlord": {
-    "id": "ll_NmxaMCWEDRkk",
-    "firstName": "Johhny",
-    "lastName": "Moore",
-    "email": "bobthemannomore@gmail.com",
-    "createdAt": "2018-11-12T19:30:55.639Z",
-    "address": {
-      "line1": "229 Shoreditch High Street",
-      "line2": "Kent",
-      "town": "London",
-      "postcode": "E1 6PJ",
-      "country": "GBR",
-      "createdAt": "2018-11-12T19:30:55.639Z"
-    }
-  },
   "address": {
-    "line1": "999 Shoreditch High Street",
-    "line2": "Shoreditch",
+    "line1": "Techhub London",
+    "line2": "20 Ropemaker Street",
     "town": "London",
-    "postcode": "E1 6PJ",
     "country": "GBR",
-    "createdAt": "2018-11-12T19:30:55.639Z"
+    "postcode": "EC2Y 9AR"
   },
   "agent": {
-    "id": "usr_ixYGxwnc7x7FLUn8ag",
-    "firstName": "Alberto",
-    "lastName": "Guiseppe"
+    "id": "usr_XOdlpqwSvvm",
+    "firstName": "Bob",
+    "lastName": "Jenkins"
   },
   "supplier": {
-    "id": "sup_sdkfjf349494D",
+    "id": "sup_FlaDTencPL",
     "name": "Hans International",
     "type": "AGENCY"
   },
   "tenants": [
     {
-      "userEmail": "tenant2@sky.com",
-      "createdAt": "2018-11-12T19:30:55.686Z"
-    },
-    {
-      "userEmail": "tenant1@hotmail.co.uk",
-      "createdAt": "2018-11-12T19:30:55.679Z"
+      "email": "tenant1@reposit.co.uk",
+      "createdAt": "2017-01-12T00:00:00.000Z",
+      "status": "REGISTERED"
     }
   ],
-  "policies": [
-    {
-      "id": "pol_sg45gd2134dFoo",
-      "documents": [
-        {
-          "id": "doc_sd3345dsdsd3",
-          "name": "Policy document.pdf",
-          "href": "https://reposit.co.uk/deposits/policies/pol_sg45gd2134dFoo/documents/doc_sd3345dsdsd3"
-        }
-      ]
-    }
-  ]
+  "landlordUrl": "http://reposit.co.uk/deposits/v1/reposits/rep_xdFEdfgeDxoC/landlord",
+  "policiesUrl": "http://reposit.co.uk/deposits/v1/reposits/rep_xdFEdfgeDxoC/policies"
 }
-``` -->
+```
+
+This endpoint returns a single Reposit by id.
+
+### HTTP Request
+
+`GET https://reposit.co.uk/deposits/v1/reposits/:id`
+
+### Response attributes
+
+| Parameter     | Type                | Description                                                                                        |
+| ------------- | ------------------- | -------------------------------------------------------------------------------------------------- |
+| id            | string              | Identifier, always starts with 'rep\_'                                                             |
+| ppm           | number              | Monthly rent in pounds                                                                             |
+| headcount     | number              | Total number of tenants                                                                            |
+| ppm           | number              | Monthly rent in pounds                                                                             |
+| startDate     | Date                | Start date of the tenancy (YYYY-MM-DD)                                                             |
+| endDate       | Date                | End date of the tenancy (YYYY-MM-DD)                                                               |
+| letOnly       | boolean             | Set to true if the Landlord will manage the claims process instead of the agent. Defaults to false |
+| createdAt     | timestamp           | Date and time of creation                                                                          |
+| closedAt      | timestamp           | Date Reposit was closed due to expiry (null if not closed)                                         |
+| deactivatedAt | timestamp           | Date Reposit was manually deactivated (null if not deactiated)                                     |
+| address       | [Address](#address) | Address of the property on the tenancy agreement                                                   |
+| agent         | Agent               | User that 'owns' the Reposit                                                                       |
+| supplier      | Object              | Letting Agency that manages the property                                                           |
+| tenants       | Tenant[]            | List of tenants and their status (INVITED, REGISTERED, CONFIRMED, SIGNED or PAID)                  |
+| landlordUrl   | string              | Url to get more information about the landlord                                                     |
+| policiesUrl   | string              | Url to get more information about insurance policies issued for this Reposit                       |
+
+## Get Reposit policies
+
+> HTTP Request
+
+```shell
+curl "https://reposit.co.uk/deposits/v1/reposits/:id/policies"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example response payload:
+
+```json
+[
+  {
+    "id": "pol_w41bETkXo33P",
+    "type": {
+      "id": "CAN_V2_3000_24",
+      "category": "DEPOSIT_WAIVER"
+    },
+    "startDate": "2018-12-31T00:00:00.000Z",
+    "endDate": "2020-12-31T00:00:00.000Z",
+    "documents": [
+      {
+        "id": "doc_GVRxNIylVf36",
+        "type": "Policy Summary",
+        "name": "pol_w41bETkXo33P",
+        "href": "https://docs.cloudfront.net/1234/policy-certificate.pdf",
+        "createdAt": "2018-12-10T11:46:11.326Z"
+      }
+    ]
+  }
+]
+```
+
+Returns all insurance policies associated with a Reposit
+
+### HTTP Request
+
+`GET https://reposit.co.uk/deposits/v1/reposits/:id/policies`
+
+### Response attributes
+
+| Parameter | Type                                | Description                                                                                         |
+| --------- | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
+| id        | string                              | Identifier, always starts with 'pol\_'                                                              |
+| type      | [PolicyType](#policytype)           | Type of insurance policy                                                                            |
+| startDate | timestamp                           | Policy cover start date                                                                             |
+| endDate   | timestamp                           | Policy cover end date                                                                               |
+| documents | [PolicyDocument[]](#policydocument) | List of files or documents associated with the policy (Normally includes a certificate of issuance) |
 
 ## Create a Reposit
 
@@ -275,33 +335,121 @@ Remember — a happy kitten is an authenticated kitten!
 
 # Webhooks
 
-Reposit provides webhooks to alert you of events that happen within our system. These are POST requests to your server that are sent as soon as an event occurs. The body of the request contains details of the event.
+Reposit uses webhooks to alert you of events that happen within our system. These are POST requests to your server that are sent as soon as an event occurs. The body of the request contains details about the event.
 
-## Events
+All webhooks will be sent to a single endpoint on your system. If your system returns an error when we try to send an event - we will retry up to a maximum of 5 times per event.
 
-> Reposit completed example
+<aside class="notice">
+ Webhooks need to be activated upon request, if you'd like to activate webhooks for your account please <a href="mailto:brendan@reposit.co.uk">contact us</a>.
+</aside>
+
+## Overview
+
+| Resource | Event                    | Description                                                                                                                                                                                                       |
+| -------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| reposit  | reposit.tenant.confirmed | When any tenant on the Reposit confirms                                                                                                                                                                           |
+| reposit  | reposit.tenant.signed    | When any tenant on the Reposit signs legal documents for the Reposit                                                                                                                                              |
+| reposit  | reposit.tenant.paid      | When any tenant completes payment for the Reposit                                                                                                                                                                 |
+| reposit  | reposit.completed        | When all tenants on a Reposit complete payment and the Reposit becomes 'Active'. When you receive this event, you can follow the href property to get more information, such as the insurance policy certificate. |
+
+## reposit.tenant.confirmed
+
+> Tenant confirmed example webhook payload
 
 ```json
 {
-  "payload": {
-    "resource_type": "reposit",
-    "action": "reposit.completed",
-    "object": {
-      "id": "rep_sfe2Ds0123x2gv",
-      "href": "https://reposit.co.uk/deposits/v1/reposits/rep_sfe2Ds0123x2gv",
-      "completed_at": "2018-11-12T19:30:55.686Z",
-      "policy": {
-        "id": "pol_xvbHuIOP43nv",
-        "download_href": "https://reposit.co.uk/deposits/v1/policies/pol_xvbHuIOP43nv/documents?download=true"
-      }
+  "resource_type": "reposit",
+  "action": "reposit.tenant.confirmed",
+  "timestamp": "2018-12-20T10:44:23.131Z",
+  "resource": {
+    "id": "ep_F32iOv3xE3Nmrp",
+    "href": "https://reposit.co.uk/deposits/v1/reposits/ep_F32iOv3xE3Nmrp"
+  },
+  "data": {
+    "tenant": {
+      "email": "tenant@reposit.co.uk",
+      "createdAt": "2018-12-20T10:36:05.679Z",
+      "status": "CONFIRMED"
     }
   }
 }
 ```
 
-| Resource | Event             | Description                                                                                                                                                                 |
-| -------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| reposit  | reposit.completed | The Reposit completed endpoint will fire when all tenants on a Reposit complete payment. At this point, a policy is issued which gives the landlord cover for the property. |
+This event is triggered when a tenant confirms the details of the Reposit.
+
+## reposit.tenant.signed
+
+> Tenant signed example webhook payload
+
+```json
+{
+  "resource_type": "reposit",
+  "action": "reposit.tenant.signed",
+  "timestamp": "2018-12-20T10:44:23.131Z",
+  "resource": {
+    "id": "ep_F32iOv3xE3Nmrp",
+    "href": "https://reposit.co.uk/deposits/v1/reposits/ep_F32iOv3xE3Nmrp"
+  },
+  "data": {
+    "tenant": {
+      "email": "tenant@reposit.co.uk",
+      "createdAt": "2018-12-20T10:36:05.679Z",
+      "status": "SIGNED"
+    }
+  }
+}
+```
+
+This event is triggered when a tenant signs the legal documents for the Reposit.
+
+## reposit.tenant.paid
+
+> Tenant paid example webhook payload
+
+```json
+{
+  "resource_type": "reposit",
+  "action": "reposit.tenant.paid",
+  "timestamp": "2018-12-20T10:44:23.131Z",
+  "resource": {
+    "id": "ep_F32iOv3xE3Nmrp",
+    "href": "https://reposit.co.uk/deposits/v1/reposits/ep_F32iOv3xE3Nmrp"
+  },
+  "data": {
+    "tenant": {
+      "email": "tenant@reposit.co.uk",
+      "createdAt": "2018-12-20T10:36:05.679Z",
+      "status": "PAID"
+    }
+  }
+}
+```
+
+This event is triggered when a tenant completes payment for the Reposit.
+
+<aside class="warning">
+This does not mean the Reposit is active, all tenants must complete payment first.
+</aside>
+
+## reposit.completed
+
+> Reposit completed example webhook payload
+
+```json
+{
+  "resource_type": "reposit",
+  "action": "reposit.completed",
+  "timestamp": "2018-12-20T10:48:03.169Z",
+  "resource": {
+    "id": "rep_F32iOv3xE3Nmrp",
+    "href": "https://reposit.co.uk/deposits/v1/reposits/rep_F32iOv3xE3Nmrp"
+  }
+}
+```
+
+This event is triggered when all tenants have paid and the cover to the Landlord is in place.
+
+When you receive this event, your client can follow the 'href' property to get the full status of the Reposit and any policy documents if you wish to display those to your users. (See [Get Reposit policies](#get-reposit-policies))
 
 # Objects
 
@@ -355,3 +503,47 @@ A landlord can be either a company or a person.
 | lastName  | Y         | Last name                                                 |
 | email     | Y         | Email address (to receive policy documents)               |
 | address   | Y         | Home or business address ([See address object](#address)) |
+
+## PolicyType
+
+> Full JSON structure for a policy type looks like this:
+
+```json
+{
+  "id": "CAN_V2_3000_24",
+  "category": "DEPOSIT_WAIVER"
+}
+```
+
+A policy type represents an particular type of insurance policy. Reposits may have different policy types depending on the duration and amount of cover required.
+
+For most cases the category be 'DEPOSIT_WAIVER' which is our default deposit replacement product.
+
+| Parameter | Description                                                 |
+| --------- | ----------------------------------------------------------- |
+| id        | Identifier of the policy type                               |
+| category  | Category of policy (Will be 'DEPOSIT_WAIVER' in most cases) |
+
+## PolicyDocument
+
+> Full JSON structure for a policy document looks like this:
+
+```json
+{
+  "id": "doc_GVRxNIylVf36",
+  "type": "Policy Summary",
+  "name": "pol_w41bETkXo33P",
+  "href": "https://docs.cloudfront.net/1234/policy-certificate.pdf",
+  "createdAt": "2018-12-10T11:46:11.326Z"
+}
+```
+
+A policy document is typically a certificate of issuance outlining the policy cover in a PDF format.
+
+| Parameter | Description                                                            |
+| --------- | ---------------------------------------------------------------------- |
+| id        | Identifier of the policy type                                          |
+| type      | Type of document. Generally 'Policy Summary' for issuance certificates |
+| name      | Name of the document                                                   |
+| href      | Link to access the document                                            |
+| createdAt | Date and time of document creation                                     |
