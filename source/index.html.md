@@ -345,12 +345,14 @@ All webhooks will be sent to a single endpoint on your system. If your system re
 
 ## Overview
 
-| Resource | Event                    | Description                                                                                                                                                                                                       |
+| Resource | Event                    | Action                                                                                                                                                                                                            |
 | -------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | reposit  | reposit.tenant.confirmed | When any tenant on the Reposit confirms                                                                                                                                                                           |
 | reposit  | reposit.tenant.signed    | When any tenant on the Reposit signs legal documents for the Reposit                                                                                                                                              |
 | reposit  | reposit.tenant.paid      | When any tenant completes payment for the Reposit                                                                                                                                                                 |
 | reposit  | reposit.completed        | When all tenants on a Reposit complete payment and the Reposit becomes 'Active'. When you receive this event, you can follow the href property to get more information, such as the insurance policy certificate. |
+| reposit  | reposit.closed           | When a Reposit is automatically closed becuase the tenancy ended                                                                                                                                                  |
+| reposit  | reposit.deactivated      | When a Reposit is manually deactivated on request, or automatically becuase it was incomplete for more than 3 months                                                                                              |
 
 ## reposit.tenant.confirmed
 
@@ -450,6 +452,44 @@ This does not mean the Reposit is active, all tenants must complete payment firs
 This event is triggered when all tenants have paid and the cover to the Landlord is in place.
 
 When you receive this event, your client can follow the 'href' property to get the full status of the Reposit and any policy documents if you wish to display those to your users. (See [Get Reposit policies](#get-reposit-policies))
+
+## reposit.closed
+
+> Reposit closed example webhook payload
+
+```json
+{
+  "resource_type": "reposit",
+  "action": "reposit.closed",
+  "timestamp": "2018-12-20T10:48:03.169Z",
+  "resource": {
+    "id": "rep_F32iOv3xE3Nmrp",
+    "href": "https://reposit.co.uk/deposits/v1/reposits/rep_F32iOv3xE3Nmrp"
+  }
+}
+```
+
+Reposits will be automatically closed when the tenancy ends. If there is a claim at the end of the tenancy the Reposit will remain open until the claim has been settled.
+
+## reposit.deactivated
+
+> Reposit deactivated example webhook payload
+
+```json
+{
+  "resource_type": "reposit",
+  "action": "reposit.deactivated",
+  "timestamp": "2018-12-20T10:48:03.169Z",
+  "resource": {
+    "id": "rep_F32iOv3xE3Nmrp",
+    "href": "https://reposit.co.uk/deposits/v1/reposits/rep_F32iOv3xE3Nmrp"
+  }
+}
+```
+
+Only incomplete Reposits can be deactivated - Reposits that are older than 3 months, but tenants have not completed any actions will be automatically deactivated by the system.
+
+A Reposit can also be deactivated manually upon user request (I.e. tenants no longer moving in).
 
 # Objects
 
