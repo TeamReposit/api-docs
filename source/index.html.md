@@ -148,7 +148,7 @@ curl "https://reposit.co.uk/deposits/v1/reposits/:id"
 {
   "id": "rep_xdFEdfgeDxoC",
   "ppm": 5000,
-  "headcount": 1,
+  "headcount": 2,
   "startDate": "2017-01-18",
   "endDate": "2018-01-18",
   "letOnly": null,
@@ -174,9 +174,16 @@ curl "https://reposit.co.uk/deposits/v1/reposits/:id"
   },
   "tenants": [
     {
+      "id": "tnt_DFed239dl8974Dccx",
       "email": "tenant1@reposit.co.uk",
       "createdAt": "2017-01-12T00:00:00.000Z",
       "status": "REGISTERED"
+    },
+    {
+      "id": "tnt_BGed889dl89783Ecx",
+      "email": "tenant2@reposit.co.uk",
+      "createdAt": "2017-01-12T00:00:00.000Z",
+      "status": "INVITED"
     }
   ],
   "landlordUrl": "http://reposit.co.uk/deposits/v1/reposits/rep_xdFEdfgeDxoC/landlord",
@@ -369,6 +376,7 @@ All webhooks will be sent to a single endpoint on your system. If your system re
   },
   "data": {
     "tenant": {
+      "id": "tnt_DFed239dl8974Dccx",
       "email": "tenant@reposit.co.uk",
       "createdAt": "2018-12-20T10:36:05.679Z",
       "status": "CONFIRMED"
@@ -394,6 +402,7 @@ This event is triggered when a tenant confirms the details of the Reposit.
   },
   "data": {
     "tenant": {
+      "id": "tnt_DFed239dl8974Dccx",
       "email": "tenant@reposit.co.uk",
       "createdAt": "2018-12-20T10:36:05.679Z",
       "status": "SIGNED"
@@ -419,6 +428,7 @@ This event is triggered when a tenant signs the legal documents for the Reposit.
   },
   "data": {
     "tenant": {
+      "id": "tnt_DFed239dl8974Dccx",
       "email": "tenant@reposit.co.uk",
       "createdAt": "2018-12-20T10:36:05.679Z",
       "status": "PAID"
