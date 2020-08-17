@@ -129,9 +129,9 @@ This endpoint returns all agent user accounts associated with this supplier. Thi
 
 ### Request params
 
-| Parameter | Description                                                                                               |
-| --------- | --------------------------------------------------------------------------------------------------------- |
-| id        | Supplier id - You can obtain this from calling the [Get Supplier account](#get-supplier-account) endpoint |
+| Parameter | Description                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------- |
+| id        | Supplier id - You can obtain this from calling the [Get Supplier account](#get-supplier-account) endpoint. |
 
 ## Get a Reposit
 
@@ -147,7 +147,7 @@ curl "https://reposit.co.uk/deposits/v1/reposits/:id"
 ```json
 {
   "id": "rep_xdFEdfgeDxoC",
-  "ppm": 5000,
+  "ppm": 50000,
   "headcount": 2,
   "startDate": "2017-01-18",
   "endDate": "2018-01-18",
@@ -199,24 +199,23 @@ This endpoint returns a single Reposit by id.
 
 ### Response attributes
 
-| Parameter     | Type                | Description                                                                                        |
-| ------------- | ------------------- | -------------------------------------------------------------------------------------------------- |
-| id            | string              | Identifier, always starts with 'rep\_'                                                             |
-| ppm           | number              | Monthly rent in pounds                                                                             |
-| headcount     | number              | Total number of tenants                                                                            |
-| ppm           | number              | Monthly rent in pounds                                                                             |
-| startDate     | Date                | Start date of the tenancy (YYYY-MM-DD)                                                             |
-| endDate       | Date                | End date of the tenancy (YYYY-MM-DD)                                                               |
-| letOnly       | boolean             | Set to true if the Landlord will manage the claims process instead of the agent. Defaults to false |
-| createdAt     | timestamp           | Date and time of creation                                                                          |
-| closedAt      | timestamp           | Date Reposit was closed due to expiry (null if not closed)                                         |
-| deactivatedAt | timestamp           | Date Reposit was manually deactivated (null if not deactiated)                                     |
-| address       | [Address](#address) | Address of the property on the tenancy agreement                                                   |
-| agent         | Agent               | User that 'owns' the Reposit                                                                       |
-| supplier      | Object              | Letting Agency that manages the property                                                           |
-| tenants       | Tenant[]            | List of tenants and their status (INVITED, REGISTERED, CONFIRMED, SIGNED or PAID)                  |
-| landlordUrl   | string              | Url to get more information about the landlord                                                     |
-| policiesUrl   | string              | Url to get more information about insurance policies issued for this Reposit                       |
+| Parameter     | Type                | Description                                                                                         |
+| ------------- | ------------------- | --------------------------------------------------------------------------------------------------- |
+| id            | string              | Identifier, always starts with 'rep\_'.                                                             |
+| ppm           | number              | Monthly rent in pence.                                                                              |
+| headcount     | number              | Total number of tenants.                                                                            |
+| startDate     | Date                | Start date of the tenancy (YYYY-MM-DD).                                                             |
+| endDate       | Date                | End date of the tenancy (YYYY-MM-DD)                                                                |
+| letOnly       | boolean             | Set to true if the Landlord will manage the claims process instead of the agent. Defaults to false. |
+| createdAt     | timestamp           | Date and time of creation.                                                                          |
+| closedAt      | timestamp           | Date Reposit was closed due to expiry (null if not closed).                                         |
+| deactivatedAt | timestamp           | Date Reposit was manually deactivated (null if not deactivated).                                    |
+| address       | [Address](#address) | Address of the property on the tenancy agreement.                                                   |
+| agent         | Agent               | User that 'owns' the Reposit.                                                                       |
+| supplier      | Object              | Letting Agency that manages the property.                                                           |
+| tenants       | Tenant[]            | List of tenants and their status (INVITED, REGISTERED, CONFIRMED, SIGNED or PAID).                  |
+| landlordUrl   | string              | Url to get more information about the landlord.                                                     |
+| policiesUrl   | string              | Url to get more information about insurance policies issued for this Reposit.                       |
 
 ## Get Reposit policies
 
@@ -260,13 +259,13 @@ Returns all insurance policies associated with a Reposit
 
 ### Response attributes
 
-| Parameter | Type                                | Description                                                                                         |
-| --------- | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
-| id        | string                              | Identifier, always starts with 'pol\_'                                                              |
-| type      | [PolicyType](#policytype)           | Type of insurance policy                                                                            |
-| startDate | timestamp                           | Policy cover start date                                                                             |
-| endDate   | timestamp                           | Policy cover end date                                                                               |
-| documents | [PolicyDocument[]](#policydocument) | List of files or documents associated with the policy (Normally includes a certificate of issuance) |
+| Parameter | Type                                | Description                                                                                          |
+| --------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| id        | string                              | Identifier, always starts with 'pol\_'.                                                              |
+| type      | [PolicyType](#policytype)           | Type of insurance policy.                                                                            |
+| startDate | timestamp                           | Policy cover start date.                                                                             |
+| endDate   | timestamp                           | Policy cover end date.                                                                               |
+| documents | [PolicyDocument[]](#policydocument) | List of files or documents associated with the policy (Normally includes a certificate of issuance). |
 
 ## Create a Reposit
 
@@ -301,7 +300,7 @@ curl -X POST "https://reposit.co.uk/deposits/v1/reposits"
     }
   },
   "agentId": "usr_bG60oPld44Hxa1",
-  "ppm": 2000,
+  "ppm": 50000,
   "headcount": 2,
   "startDate": "2018-10-21",
   "endDate": "2019-10-21",
@@ -327,10 +326,10 @@ Once a Reposit is created, tenants will be emailed and need to complete the proc
 | address      | [Address](#address)   | Address of the property on the tenancy agreement.                                                                                                                  |
 | landlord     | [Landlord](#landlord) | Landlord of the property.                                                                                                                                          |
 | agentId      | string                | ID of the agent who will receive all notifications related to this Reposit. You can lookup agent ids via the [Get supplier agents](#get-supplier-agents) endpoint. |
-| ppm          | number                | Monthly rent in pounds.                                                                                                                                            |
+| ppm          | number                | Monthly rent in pence.                                                                                                                                             |
 | headcount    | number                | Total number of tenants on the tenancy agreement.                                                                                                                  |
-| startDate    | Date                  | Start date of the tenancy (YYYY-MM-DD)                                                                                                                             |
-| endDate      | Date                  | End date of the tenancy. (YYYY-MM-DD)                                                                                                                              |
+| startDate    | Date                  | Start date of the tenancy (YYYY-MM-DD).                                                                                                                            |
+| endDate      | Date                  | End date of the tenancy. (YYYY-MM-DD).                                                                                                                             |
 | tenantEmails | string[]              | Array of email addresses for all tenants on the tenancy agreement.                                                                                                 |
 | letOnly      | boolean               | Set to true if the Landlord will manage the claims process instead of the agent. Defaults to false.                                                                |
 
@@ -339,6 +338,103 @@ Remember — a happy kitten is an authenticated kitten!
 </aside> -->
 
 <!-- <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside> -->
+
+## Pricing a Reposit
+
+> HTTP Request
+
+```shell
+curl -X POST "https://reposit.co.uk/deposits/v1/reposits/pricing"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example request payload:
+
+```json
+{
+  "headcount": 2,
+  "ppm": 50000
+}
+```
+
+> Example response:
+
+```json
+{
+  "totalFee": 11538,
+  "tenantFee": 5769
+}
+```
+
+This endpoint calculates the price of a Reposit based on the headcount and ppm passed, and the pricing rule of the supplier associated with the integration token in the request.
+
+<aside class="notice">
+If no API key is passed in the request, the standard Reposit pricing rule will be used.
+</aside>
+
+### HTTP Request
+
+`POST https://reposit.co.uk/deposits/v1/reposits/pricing`
+
+### Request Payload
+
+| Parameter | Type   | Description              |
+| --------- | ------ | ------------------------ |
+| headcount | number | Total number of tenants. |
+| ppm       | number | Monthly rent in pence.   |
+
+### Reponse Attributes
+
+| Parameter | Type   | Description                        |
+| --------- | ------ | ---------------------------------- |
+| totalFee  | number | Total fee of the Reposit in pence. |
+| tenantFee | number | Fee per tenant in pence.           |
+
+## Get Tenant terms
+
+> HTTP Request
+
+```shell
+curl "https://reposit.co.uk/deposits/v1/terms/tenant"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example response payload:
+
+```json
+{
+  "url": "https://reposit.co.uk/legal/agreements/Reposit%20Tenant%20Agreement.pdf"
+}
+```
+
+This endpoint returns a url to the current Reposit Tenant Agreement PDF.
+
+### HTTP Request
+
+`GET https://reposit.co.uk/deposits/v1/terms/tenant`
+
+## Get Supplier terms
+
+> HTTP Request
+
+```shell
+curl "https://reposit.co.uk/deposits/v1/terms/supplier"
+  -H "Authorization: Bearer reallySecureApiKey"
+```
+
+> Example response payload:
+
+```json
+{
+  "url": "https://reposit.co.uk/legal/agreements/Reposit%20Supplier%20Agreement.pdf"
+}
+```
+
+This endpoint returns a url to the current Reposit Supplier Agreement PDF.
+
+### HTTP Request
+
+`GET https://reposit.co.uk/deposits/v1/terms/supplier`
 
 # Webhooks
 
@@ -354,12 +450,12 @@ All webhooks will be sent to a single endpoint on your system. If your system re
 
 | Resource | Event                    | Action                                                                                                                                                                                                            |
 | -------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| reposit  | reposit.tenant.confirmed | When any tenant on the Reposit confirms                                                                                                                                                                           |
-| reposit  | reposit.tenant.signed    | When any tenant on the Reposit signs legal documents for the Reposit                                                                                                                                              |
-| reposit  | reposit.tenant.paid      | When any tenant completes payment for the Reposit                                                                                                                                                                 |
+| reposit  | reposit.tenant.confirmed | When any tenant on the Reposit confirms.                                                                                                                                                                          |
+| reposit  | reposit.tenant.signed    | When any tenant on the Reposit signs legal documents for the Reposit.                                                                                                                                             |
+| reposit  | reposit.tenant.paid      | When any tenant completes payment for the Reposit.                                                                                                                                                                |
 | reposit  | reposit.completed        | When all tenants on a Reposit complete payment and the Reposit becomes 'Active'. When you receive this event, you can follow the href property to get more information, such as the insurance policy certificate. |
-| reposit  | reposit.closed           | When a Reposit is automatically closed becuase the tenancy ended                                                                                                                                                  |
-| reposit  | reposit.deactivated      | When a Reposit is manually deactivated on request, or automatically becuase it was incomplete for more than 3 months                                                                                              |
+| reposit  | reposit.closed           | When a Reposit is automatically closed because the tenancy ended.                                                                                                                                                 |
+| reposit  | reposit.deactivated      | When a Reposit is manually deactivated on request, or automatically because it was incomplete for more than 3 months.                                                                                             |
 
 ## reposit.tenant.confirmed
 
@@ -517,13 +613,13 @@ A Reposit can also be deactivated manually upon user request (I.e. tenants no lo
 }
 ```
 
-| Parameter | Required? | Description                                                                                    |
-| --------- | --------- | ---------------------------------------------------------------------------------------------- |
-| line1     | Y         | First line of the address                                                                      |
-| line2     | N         | Second line of the address                                                                     |
-| town      | Y         | Town or City                                                                                   |
-| country   | Y         | [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code e.g. 'GBR' |
-| postcode  | Y         | 6 digit postcode e.g. 'EC2M 6YP'                                                               |
+| Parameter | Required? | Description                                                                                     |
+| --------- | --------- | ----------------------------------------------------------------------------------------------- |
+| line1     | Y         | First line of the address.                                                                      |
+| line2     | N         | Second line of the address.                                                                     |
+| town      | Y         | Town or City.                                                                                   |
+| country   | Y         | [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code e.g. 'GBR'. |
+| postcode  | Y         | 6 digit postcode e.g. 'EC2M 6YP'.                                                               |
 
 ## Landlord
 
@@ -544,15 +640,15 @@ A Reposit can also be deactivated manually upon user request (I.e. tenants no lo
 }
 ```
 
-We use the Landlord's information to name them on the insurace policies which provide them with cover when a Reposit is completed.
+We use the Landlord's information to name them on the insurance policies which provide them with cover when a Reposit is completed.
 A landlord can be either a company or a person.
 
-| Parameter | Required? | Description                                               |
-| --------- | --------- | --------------------------------------------------------- |
-| firstName | Y         | First name                                                |
-| lastName  | Y         | Last name                                                 |
-| email     | Y         | Email address (to receive policy documents)               |
-| address   | Y         | Home or business address ([See address object](#address)) |
+| Parameter | Required? | Description                                                |
+| --------- | --------- | ---------------------------------------------------------- |
+| firstName | Y         | First name.                                                |
+| lastName  | Y         | Last name.                                                 |
+| email     | Y         | Email address (to receive policy documents).               |
+| address   | Y         | Home or business address ([See address object](#address)). |
 
 ## PolicyType
 
@@ -565,14 +661,14 @@ A landlord can be either a company or a person.
 }
 ```
 
-A policy type represents an particular type of insurance policy. Reposits may have different policy types depending on the duration and amount of cover required.
+A policy type represents a particular type of insurance policy. Reposits may have different policy types depending on the duration and amount of cover required.
 
 For most cases the category be 'DEPOSIT_WAIVER' which is our default deposit replacement product.
 
-| Parameter | Description                                                 |
-| --------- | ----------------------------------------------------------- |
-| id        | Identifier of the policy type                               |
-| category  | Category of policy (Will be 'DEPOSIT_WAIVER' in most cases) |
+| Parameter | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| id        | Identifier of the policy type.                               |
+| category  | Category of policy (Will be 'DEPOSIT_WAIVER' in most cases). |
 
 ## PolicyDocument
 
@@ -590,10 +686,10 @@ For most cases the category be 'DEPOSIT_WAIVER' which is our default deposit rep
 
 A policy document is typically a certificate of issuance outlining the policy cover in a PDF format.
 
-| Parameter | Description                                                            |
-| --------- | ---------------------------------------------------------------------- |
-| id        | Identifier of the policy type                                          |
-| type      | Type of document. Generally 'Policy Summary' for issuance certificates |
-| name      | Name of the document                                                   |
-| href      | Link to access the document                                            |
-| createdAt | Date and time of document creation                                     |
+| Parameter | Description                                                             |
+| --------- | ----------------------------------------------------------------------- |
+| id        | Identifier of the policy type.                                          |
+| type      | Type of document. Generally 'Policy Summary' for issuance certificates. |
+| name      | Name of the document.                                                   |
+| href      | Link to access the document.                                            |
+| createdAt | Date and time of document creation.                                     |
